@@ -1,9 +1,32 @@
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
+import btcGraphic from '@/assets/btc-hero-graphic.png';
+import exponentialGrowth from '@/assets/exponential-growth.png';
 
 const Hero = () => (
   <section id="início" className="relative pt-32 pb-20 overflow-hidden">
     <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: 'radial-gradient(hsl(var(--primary)) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+
+    {/* Floating decorative images */}
+    <motion.img
+      src={btcGraphic}
+      alt=""
+      aria-hidden
+      initial={{ opacity: 0, x: -60 }}
+      animate={{ opacity: 0.15, x: 0 }}
+      transition={{ duration: 1.2 }}
+      className="absolute top-24 -left-20 w-80 h-80 object-cover rounded-full blur-sm pointer-events-none select-none"
+    />
+    <motion.img
+      src={exponentialGrowth}
+      alt=""
+      aria-hidden
+      initial={{ opacity: 0, x: 60 }}
+      animate={{ opacity: 0.12, x: 0 }}
+      transition={{ duration: 1.2, delay: 0.3 }}
+      className="absolute bottom-0 -right-16 w-72 h-72 object-cover rounded-full blur-sm pointer-events-none select-none"
+    />
+
     <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}

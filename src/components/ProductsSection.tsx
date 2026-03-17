@@ -1,4 +1,6 @@
 import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, Phone, Mail } from 'lucide-react';
+import btcGraphic from '@/assets/btc-hero-graphic.png';
+import exponentialGrowth from '@/assets/exponential-growth.png';
 
 const tools = [
   { name: 'BreakEven', icon: ShieldCheck, desc: 'Proteja seu capital automaticamente ao atingir o ponto de equilíbrio da operação.' },
@@ -13,6 +15,7 @@ const markets = [
     subtitle: 'Ações da Bovespa · Mini Índice · Mini Dólar',
     intro: 'Desenvolvemos soluções sob medida para operações no mercado brasileiro, com robôs otimizados para os principais ativos da B3.',
     placeholder: 'Detalhes sobre funcionamento e estratégias serão adicionados em breve.',
+    image: exponentialGrowth,
   },
   {
     title: 'Mercado Internacional',
@@ -20,6 +23,7 @@ const markets = [
     intro: 'Desenvolvemos soluções sob medida para robôs no mercado internacional, incluindo pares de moedas, índices globais e criptomoedas.',
     placeholder: 'Detalhes sobre funcionamento e estratégias serão adicionados em breve.',
     cta: true,
+    image: btcGraphic,
   },
 ];
 
@@ -65,31 +69,41 @@ const ProductsSection = () => (
         {markets.map((market) => (
           <div
             key={market.title}
-            className="bg-card border border-foreground/5 rounded-xl p-8 md:p-10"
+            className="bg-card border border-foreground/5 rounded-xl overflow-hidden"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <Bot className="text-primary" size={22} />
-              <h3 className="font-montserrat text-2xl font-bold text-foreground">{market.title}</h3>
-            </div>
-            <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-6">{market.subtitle}</p>
-
-            {/* Intro */}
-            <div className="mb-6">
-              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Introdução</h4>
-              <p className="text-muted leading-relaxed">{market.intro}</p>
-            </div>
-
-            {/* Funcionamento placeholder */}
-            <div className="mb-6 border border-dashed border-foreground/10 rounded-lg p-6 bg-surface-light/50">
-              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Funcionamento</h4>
-              <p className="text-muted/60 italic text-sm">{market.placeholder}</p>
+            {/* Market image banner */}
+            <div className="relative h-48 overflow-hidden">
+              <img
+                src={market.image}
+                alt={market.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+              <div className="absolute bottom-4 left-8 flex items-center gap-3">
+                <Bot className="text-primary" size={22} />
+                <h3 className="font-montserrat text-2xl font-bold text-foreground">{market.title}</h3>
+              </div>
             </div>
 
-            {market.cta && (
-              <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_4px_20px_hsl(var(--primary)/0.15)]">
-                Conhecer Robô Bitcoin Viking
-              </button>
-            )}
+            <div className="p-8 md:p-10">
+              <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-6">{market.subtitle}</p>
+
+              <div className="mb-6">
+                <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Introdução</h4>
+                <p className="text-muted leading-relaxed">{market.intro}</p>
+              </div>
+
+              <div className="mb-6 border border-dashed border-foreground/10 rounded-lg p-6 bg-surface-light/50">
+                <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Funcionamento</h4>
+                <p className="text-muted/60 italic text-sm">{market.placeholder}</p>
+              </div>
+
+              {market.cta && (
+                <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_4px_20px_hsl(var(--primary)/0.15)]">
+                  Conhecer Robô Bitcoin Viking
+                </button>
+              )}
+            </div>
           </div>
         ))}
       </div>
