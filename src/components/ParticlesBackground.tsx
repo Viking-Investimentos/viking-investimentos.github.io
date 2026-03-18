@@ -1,57 +1,93 @@
-import { useEffect, useState, useMemo } from 'react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
-import type { ISourceOptions } from '@tsparticles/engine';
+import { useEffect, useRef } from 'react';
 
 const ParticlesBackground = () => {
-  const [init, setInit] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => setInit(true));
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationId: number;
+    const particles: { x: number; y: number; vx: number; vy: number; size: number }[] = [];
+    const count = 80;
+    const linkDistance = 150;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.offsetWidth,
+        y: Math.random() * canvas.offsetHeight,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        size: Math.random() * 1.5 + 0.5,
+      });
+    }
+
+    const animate = () => {
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+      }
+
+      // Draw links
+      ctx.strokeStyle = 'rgba(74, 122, 255, 0.15)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < count; i++) {
+        for (let j = i + 1; j < count; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < linkDistance) {
+            ctx.globalAlpha = 1 - dist / linkDistance;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      ctx.globalAlpha = 0.3;
+      ctx.fillStyle = '#4a7aff';
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+    };
   }, []);
 
-  const options: ISourceOptions = useMemo(
-    () => ({
-      fullScreen: false,
-      background: { color: { value: 'transparent' } },
-      fpsLimit: 60,
-      particles: {
-        color: { value: '#4a7aff' },
-        links: {
-          color: '#4a7aff',
-          distance: 150,
-          enable: true,
-          opacity: 0.15,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 0.6,
-          direction: 'none' as const,
-          outModes: { default: 'bounce' as const },
-        },
-        number: {
-          density: { enable: true },
-          value: 80,
-        },
-        opacity: { value: 0.3 },
-        shape: { type: 'circle' },
-        size: { value: { min: 1, max: 2 } },
-      },
-      detectRetina: true,
-    }),
-    []
-  );
-
-  if (!init) return null;
-
   return (
-    <Particles
-      id="tsparticles"
-      className="absolute inset-0 z-0"
-      options={options}
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-0 w-full h-full"
     />
   );
 };
