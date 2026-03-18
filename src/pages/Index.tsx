@@ -5,16 +5,20 @@ import EducationSection from '@/components/EducationSection';
 import ProductsSection from '@/components/ProductsSection';
 import CtaSection from '@/components/CtaSection';
 import Footer from '@/components/Footer';
+import ParticlesBackground from '@/components/ParticlesBackground';
 
 const Index = () => (
-  <div className="min-h-screen bg-background selection:bg-primary selection:text-primary-foreground">
-    <Navbar />
-    <Hero />
-    <StatsBar />
-    <EducationSection />
-    <ProductsSection />
-    <CtaSection />
-    <Footer />
+  <div className="min-h-screen bg-background selection:bg-primary selection:text-primary-foreground relative">
+    <ParticlesBackground />
+    <div className="relative z-10">
+      <Navbar />
+      <Hero />
+      <StatsBar />
+      <EducationSection />
+      <ProductsSection />
+      <CtaSection />
+      <Footer />
+    </div>
   </div>
 );
 
