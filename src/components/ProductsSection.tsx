@@ -43,6 +43,45 @@ const ProductsSection = () => (
         </p>
       </div>
 
+      {/* 3D Button Groups */}
+      <div className="grid md:grid-cols-2 gap-6 mb-20">
+        {/* Mercado Internacional */}
+        <div className="rounded-xl overflow-hidden border border-foreground/10">
+          <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#1a5fa8' }}>
+            Mercado Internacional
+          </div>
+          <div className="flex flex-wrap gap-3 p-6 bg-card">
+            {['BTC/USD', 'DAX', 'FOREX'].map((label) => (
+              <button
+                key={label}
+                className="px-6 py-3 rounded-lg font-montserrat font-bold text-sm text-foreground/90 transition-transform hover:-translate-y-[3px]"
+                style={{ backgroundColor: '#d4d4d4', color: '#1a1a2e', boxShadow: '0 4px 0 #aaaaaa' }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Mercado Nacional */}
+        <div className="rounded-xl overflow-hidden border border-foreground/10">
+          <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#3a7d1e' }}>
+            Mercado Nacional
+          </div>
+          <div className="flex flex-wrap gap-3 p-6 bg-card">
+            {['Mini Índice', 'Mini Dólar'].map((label) => (
+              <button
+                key={label}
+                className="px-6 py-3 rounded-lg font-montserrat font-bold text-sm transition-transform hover:-translate-y-[3px]"
+                style={{ backgroundColor: '#ffd000', color: '#1a1a2e', boxShadow: '0 4px 0 #b38a00' }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Tools Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
         {tools.map((tool) => (
