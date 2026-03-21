@@ -43,6 +43,24 @@ const ProductsSection = () => (
         </p>
       </div>
 
+      {/* Educação Financeira Viking */}
+      <div className="rounded-xl overflow-hidden border border-foreground/10 mb-8">
+        <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#7c3aed' }}>
+          Educação Financeira Viking
+        </div>
+        <div className="flex flex-wrap gap-3 p-6 bg-card">
+          {['Módulo Básico', 'Módulo Intermediário', 'Módulo Avançado'].map((label) => (
+            <button
+              key={label}
+              className="px-6 py-3 rounded-lg font-montserrat font-bold text-sm transition-transform hover:-translate-y-[3px]"
+              style={{ backgroundColor: '#ede9fe', color: '#1a1a2e', boxShadow: '0 4px 0 #6d28d9' }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* 3D Button Groups */}
       <div className="grid md:grid-cols-2 gap-6 mb-20">
         {/* Mercado Internacional */}
