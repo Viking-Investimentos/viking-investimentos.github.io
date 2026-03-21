@@ -16,8 +16,10 @@ const navLinks = [
   { label: 'Início', href: '#início' },
   { label: 'Educação', href: '#educação' },
   { label: 'Produtos', href: '#produtos', dropdown: true },
+   { label: 'Planos', href: '#planos' },
   { label: 'Contato', href: '#contato' },
 ];
+
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
