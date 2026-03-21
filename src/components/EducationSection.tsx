@@ -38,23 +38,6 @@ const EducationSection = () => (
         <img src={savingsEducation} alt="Educação Financeira" className="w-28 h-28 object-contain rounded-xl hidden md:block" />
       </div>
 
-      {/* 3D Button Group */}
-      <div className="rounded-xl overflow-hidden border border-foreground/10 mb-16">
-        <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#7c3aed' }}>
-          Educação Financeira Viking
-        </div>
-        <div className="flex flex-wrap gap-3 p-6 bg-card">
-          {['Módulo Básico', 'Módulo Intermediário', 'Módulo Avançado'].map((label) => (
-            <button
-              key={label}
-              className="px-6 py-3 rounded-lg font-montserrat font-bold text-sm transition-transform hover:-translate-y-[3px]"
-              style={{ backgroundColor: '#ede9fe', color: '#1a1a2e', boxShadow: '0 4px 0 #6d28d9' }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
 
       <div className="grid md:grid-cols-3 gap-6 mb-16">
         {modules.map((mod) => (
