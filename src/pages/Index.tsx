@@ -15,6 +15,7 @@ const Index = () => (
       <Hero />
       <StatsBar />
       <ProductsSection />
+       <PlanosSection />
       <CtaSection />
       <Footer />
     </div>
