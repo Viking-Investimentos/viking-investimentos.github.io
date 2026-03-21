@@ -109,7 +109,7 @@ const PlanosSection = () => {
                 ))}
               </div>
               
-                href="https://wa.me/55SEUNUMERO"
+                href="https://wa.me/5551997337388"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 block text-center bg-white/20 hover:bg-white/30 border border-white/40 text-white font-montserrat font-bold text-sm py-2.5 rounded-xl transition-all"
