@@ -1,4 +1,5 @@
-import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, Phone, Mail, Play, Lock } from 'lucide-react';
+import { useState } from 'react';
+import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, Phone, Mail, Play, Lock, TrendingDown, Trophy } from 'lucide-react';
 import btcGraphic from '@/assets/btc-hero-graphic.png';
 import exponentialGrowth from '@/assets/exponential-growth.png';
 import savingsEducation from '@/assets/savings-education.png';
@@ -44,6 +45,137 @@ const lessons = [
   { title: 'Como Funciona a Bolsa de Valores', active: false, image: null },
 ];
 
+const relatorio = {
+  ativo: 'BTC/USD',
+  periodo: 'BTC USD T1',
+  deposito: 10000.0,
+  lucro: 375.08,
+  retorno: 3.75,
+  operacoes: 52,
+  wins: 40,
+  losses: 12,
+  win_rate: 76.9,
+  saldo_final: 10375.08,
+};
+
+const BtcRelatorios = () => {
+  const [periodoAtivo, setPeriodoAtivo] = useState('T1 2026');
+
+  return (
+    <div className="mt-4">
+      {/* Sub-abas de período */}
+      <div className="flex gap-2 mb-6">
+        {['T1 2026'].map((p) => (
+          <button
+            key={p}
+            onClick={() => setPeriodoAtivo(p)}
+            className="px-4 py-2 rounded-lg font-montserrat font-bold text-sm transition-all"
+            style={{
+              backgroundColor: periodoAtivo === p ? '#f59e0b' : '#1e293b',
+              color: periodoAtivo === p ? '#1a1a2e' : '#94a3b8',
+              boxShadow: periodoAtivo === p ? '0 4px 0 #b45309' : '0 4px 0 #0f172a',
+            }}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+
+      {/* Cards de resumo */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div className="bg-surface-mid rounded-xl p-4 border border-foreground/5">
+          <p className="text-muted text-xs font-montserrat mb-1">Lucro Total</p>
+          <p className="text-green-400 font-montserrat font-bold text-lg">+${relatorio.lucro}</p>
+        </div>
+        <div className="bg-surface-mid rounded-xl p-4 border border-foreground/5">
+          <p className="text-muted text-xs font-montserrat mb-1">Retorno</p>
+          <p className="text-green-400 font-montserrat font-bold text-lg">+{relatorio.retorno}%</p>
+        </div>
+        <div className="bg-surface-mid rounded-xl p-4 border border-foreground/5">
+          <p className="text-muted text-xs font-montserrat mb-1">Win Rate</p>
+          <p className="text-primary font-montserrat font-bold text-lg">{relatorio.win_rate}%</p>
+        </div>
+        <div className="bg-surface-mid rounded-xl p-4 border border-foreground/5">
+          <p className="text-muted text-xs font-montserrat mb-1">Operações</p>
+          <p className="text-foreground font-montserrat font-bold text-lg">{relatorio.operacoes}</p>
+          <p className="text-xs text-muted">{relatorio.wins}W / {relatorio.losses}L</p>
+        </div>
+      </div>
+
+      {/* Saldo */}
+      <div className="bg-surface-mid rounded-xl p-4 border border-foreground/5 mb-6 flex justify-between items-center">
+        <div>
+          <p className="text-muted text-xs font-montserrat mb-1">Depósito Inicial</p>
+          <p className="text-foreground font-montserrat font-bold">${relatorio.deposito.toLocaleString()}</p>
+        </div>
+        <div className="text-right">
+          <p className="text-muted text-xs font-montserrat mb-1">Saldo Final</p>
+          <p className="text-green-400 font-montserrat font-bold">${relatorio.saldo_final.toLocaleString()}</p>
+        </div>
+      </div>
+
+      <p className="text-muted text-xs font-montserrat text-center">
+        Resultados baseados em backtest. Período: {relatorio.periodo}.
+      </p>
+    </div>
+  );
+};
+
+const BtcCard = () => {
+  const [abaAtiva, setAbaAtiva] = useState<'info' | 'relatorios'>('info');
+
+  return (
+    <div className="bg-card border border-foreground/5 rounded-xl overflow-hidden">
+      <div className="relative h-48 overflow-hidden">
+        <img src={btcGraphic} alt="BTC/USD" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+        <div className="absolute bottom-4 left-8 flex items-center gap-3">
+          <Bot className="text-primary" size={22} />
+          <h3 className="font-montserrat text-2xl font-bold text-foreground">Robô BTC/USD</h3>
+        </div>
+      </div>
+
+      {/* Abas */}
+      <div className="flex border-b border-foreground/10">
+        <button
+          onClick={() => setAbaAtiva('info')}
+          className={`px-6 py-3 font-montserrat font-bold text-sm transition-colors ${abaAtiva === 'info' ? 'text-primary border-b-2 border-primary' : 'text-muted hover:text-foreground'}`}
+        >
+          Informações
+        </button>
+        <button
+          onClick={() => setAbaAtiva('relatorios')}
+          className={`px-6 py-3 font-montserrat font-bold text-sm transition-colors flex items-center gap-2 ${abaAtiva === 'relatorios' ? 'text-primary border-b-2 border-primary' : 'text-muted hover:text-foreground'}`}
+        >
+          <Trophy size={14} />
+          Relatórios do Robô
+        </button>
+      </div>
+
+      <div className="p-8 md:p-10">
+        {abaAtiva === 'info' ? (
+          <>
+            <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-6">Forex · Índices · Bitcoin</p>
+            <div className="mb-6">
+              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Introdução</h4>
+              <p className="text-muted leading-relaxed">Desenvolvemos soluções sob medida para robôs no mercado internacional, incluindo pares de moedas, índices globais e criptomoedas.</p>
+            </div>
+            <div className="mb-6 border border-dashed border-foreground/10 rounded-lg p-6 bg-surface-light/50">
+              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Funcionamento</h4>
+              <p className="text-muted/60 italic text-sm">Detalhes sobre funcionamento e estratégias serão adicionados em breve.</p>
+            </div>
+            <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_4px_20px_hsl(var(--primary)/0.15)]">
+              Conhecer Robô Bitcoin Viking
+            </button>
+          </>
+        ) : (
+          <BtcRelatorios />
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ProductsSection = () => (
   <section id="produtos" className="py-24 bg-background relative overflow-hidden">
     <img
@@ -54,7 +186,6 @@ const ProductsSection = () => (
     />
 
     <div className="max-w-7xl mx-auto px-6 relative z-10">
-      {/* Header */}
       <div className="text-center mb-16">
         <span className="inline-block bg-primary/10 text-primary font-montserrat text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
           Produtos
@@ -67,9 +198,7 @@ const ProductsSection = () => (
         </p>
       </div>
 
-      {/* 3D Market Button Groups */}
       <div className="grid md:grid-cols-2 gap-6 mb-12">
-        {/* Mercado Internacional */}
         <div className="rounded-xl overflow-hidden border border-foreground/10">
           <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#1a5fa8' }}>
             Mercado Internacional
@@ -87,7 +216,6 @@ const ProductsSection = () => (
           </div>
         </div>
 
-        {/* Mercado Nacional */}
         <div className="rounded-xl overflow-hidden border border-foreground/10">
           <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#3a7d1e' }}>
             Mercado Nacional
@@ -106,7 +234,6 @@ const ProductsSection = () => (
         </div>
       </div>
 
-      {/* ─── ÁREA EDUCACIONAL (abaixo dos mercados) ─── */}
       <div id="educação" className="mb-20">
         <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
@@ -118,7 +245,6 @@ const ProductsSection = () => (
           <img src={savingsEducation} alt="Educação Financeira" className="w-28 h-28 object-contain rounded-xl hidden md:block" />
         </div>
 
-        {/* 3D Education Buttons */}
         <div className="rounded-xl overflow-hidden border border-foreground/10 mb-10">
           <div className="px-6 py-3 font-montserrat font-bold text-foreground text-sm tracking-wide" style={{ backgroundColor: '#7c3aed' }}>
             Educação Financeira Viking
@@ -136,7 +262,6 @@ const ProductsSection = () => (
           </div>
         </div>
 
-        {/* Module Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           {modules.map((mod) => (
             <div key={mod.id} className={`p-8 rounded-xl border transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] ${mod.active ? 'bg-surface-mid border-primary/20' : 'bg-surface-mid/40 border-foreground/5 opacity-60'}`}>
@@ -158,14 +283,12 @@ const ProductsSection = () => (
           ))}
         </div>
 
-        {/* Illustration strip */}
         <div className="grid grid-cols-3 gap-4 mb-10">
           <img src={eduMercado} alt="Mercado Financeiro" className="w-full h-44 object-cover rounded-xl border border-foreground/5" />
           <img src={eduFracoes} alt="Frações e Ativos" className="w-full h-44 object-cover rounded-xl border border-foreground/5" />
           <img src={eduReinvestimentos} alt="Reinvestimentos" className="w-full h-44 object-cover rounded-xl border border-foreground/5" />
         </div>
 
-        {/* Lesson list */}
         <div className="bg-surface-mid rounded-2xl overflow-hidden border border-foreground/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
           <div className="p-6 border-b border-foreground/5 bg-foreground/5">
             <h4 className="font-montserrat font-bold text-foreground text-sm">Conteúdo do Módulo 01</h4>
@@ -193,7 +316,6 @@ const ProductsSection = () => (
         </div>
       </div>
 
-      {/* Tools Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
         {tools.map((tool) => (
           <div
@@ -214,39 +336,32 @@ const ProductsSection = () => (
         ))}
       </div>
 
-      {/* Market Sections */}
       <div className="space-y-12">
-        {markets.map((market) => (
-          <div key={market.title} className="bg-card border border-foreground/5 rounded-xl overflow-hidden">
-            <div className="relative h-48 overflow-hidden">
-              <img src={market.image} alt={market.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-              <div className="absolute bottom-4 left-8 flex items-center gap-3">
-                <Bot className="text-primary" size={22} />
-                <h3 className="font-montserrat text-2xl font-bold text-foreground">{market.title}</h3>
-              </div>
-            </div>
-            <div className="p-8 md:p-10">
-              <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-6">{market.subtitle}</p>
-              <div className="mb-6">
-                <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Introdução</h4>
-                <p className="text-muted leading-relaxed">{market.intro}</p>
-              </div>
-              <div className="mb-6 border border-dashed border-foreground/10 rounded-lg p-6 bg-surface-light/50">
-                <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Funcionamento</h4>
-                <p className="text-muted/60 italic text-sm">{market.placeholder}</p>
-              </div>
-              {market.cta && (
-                <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all active:scale-95 shadow-[0_4px_20px_hsl(var(--primary)/0.15)]">
-                  Conhecer Robô Bitcoin Viking
-                </button>
-              )}
+        <BtcCard />
+        {/* Mercado Brasileiro */}
+        <div className="bg-card border border-foreground/5 rounded-xl overflow-hidden">
+          <div className="relative h-48 overflow-hidden">
+            <img src={exponentialGrowth} alt="Mercado Brasileiro" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+            <div className="absolute bottom-4 left-8 flex items-center gap-3">
+              <Bot className="text-primary" size={22} />
+              <h3 className="font-montserrat text-2xl font-bold text-foreground">Mercado Brasileiro</h3>
             </div>
           </div>
-        ))}
+          <div className="p-8 md:p-10">
+            <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-6">Ações da Bovespa · Mini Índice · Mini Dólar</p>
+            <div className="mb-6">
+              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Introdução</h4>
+              <p className="text-muted leading-relaxed">Desenvolvemos soluções sob medida para operações no mercado brasileiro, com robôs otimizados para os principais ativos da B3.</p>
+            </div>
+            <div className="border border-dashed border-foreground/10 rounded-lg p-6 bg-surface-light/50">
+              <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">Funcionamento</h4>
+              <p className="text-muted/60 italic text-sm">Detalhes sobre funcionamento e estratégias serão adicionados em breve.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Contact */}
       <div className="mt-16 text-center border-t border-foreground/5 pt-12">
         <h3 className="font-montserrat text-lg font-bold text-foreground mb-4">Entre em Contato</h3>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-muted">
