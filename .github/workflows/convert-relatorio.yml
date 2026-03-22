@@ -15,8 +15,11 @@ jobs:
           python-version: '3.11'
       - name: Converter HTMLs para JSON
         run: |
+          echo "=== Arquivos em raw/ ==="
+          ls -la src/data/relatorios/raw/ || echo "Pasta nao existe"
           shopt -s nullglob
           htmls=(src/data/relatorios/raw/*.html)
+          echo "=== HTMLs encontrados: ${#htmls[@]} ==="
           if [ ${#htmls[@]} -eq 0 ]; then
             echo "Nenhum HTML encontrado em src/data/relatorios/raw/"
             exit 0
@@ -29,5 +32,5 @@ jobs:
           git config user.name "Viking Bot"
           git config user.email "bot@viking-investimentos.com"
           git add src/data/relatorios/json/ || true
-          git diff --staged --quiet || git commit -m "Auto: converte relatório MT5 para JSON"
+          git diff --staged --quiet || git commit -m "Auto: converte relatorio MT5 para JSON"
           git push || true
