@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'src/data/relatorios/raw/*.html'
+  workflow_dispatch:
 
 jobs:
   converter:
