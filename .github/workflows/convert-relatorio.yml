@@ -1,28 +1,29 @@
 name: Converter Relatório MT5
-
 on:
   push:
     paths:
       - 'src/data/relatorios/raw/*.html'
   workflow_dispatch:
-
 jobs:
   converter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
       - name: Converter HTMLs para JSON
         run: |
-          for f in src/data/relatorios/raw/*.html; do
+          shopt -s nullglob
+          htmls=(src/data/relatorios/raw/*.html)
+          if [ ${#htmls[@]} -eq 0 ]; then
+            echo "Nenhum HTML encontrado em src/data/relatorios/raw/"
+            exit 0
+          fi
+          for f in "${htmls[@]}"; do
             python3 scripts/convert_relatorio.py "$f" src/data/relatorios/json
           done
-
       - name: Commit JSONs gerados
         run: |
           git config user.name "Viking Bot"
