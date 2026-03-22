@@ -28,6 +28,6 @@ jobs:
         run: |
           git config user.name "Viking Bot"
           git config user.email "bot@viking-investimentos.com"
-          git add src/data/relatorios/json/*.json
+          git add src/data/relatorios/json/ || true
           git diff --staged --quiet || git commit -m "Auto: converte relatório MT5 para JSON"
-          git push
+          git push || true
