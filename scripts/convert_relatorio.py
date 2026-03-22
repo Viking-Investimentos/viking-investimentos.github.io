@@ -7,14 +7,22 @@ from pathlib import Path
 def converter(html_path: str, output_dir: str):
     with open(html_path, 'rb') as f:
         raw = f.read()
-
     try:
         content = raw.decode('utf-16-le', errors='ignore')
     except Exception:
         content = raw.decode('utf-8', errors='ignore')
 
+    print(f"[DEBUG] Tamanho do conteúdo: {len(content)} chars")
+    print(f"[DEBUG] Primeiros 500 chars: {content[:500]}")
+
     pattern = r'<tr bgcolor="[^"]+" align="right"><td>([^<]+)</td><td>([^<]+)</td><td>([^<]+)</td><td>([^<]+)</td><td>([^<]+)</td><td>([^<]+)</td><td>([^<]+)</td><td>[^<]+</td><td>[^<]+</td><td>[^<]+</td><td>([^<]+)</td><td>([^<]+)</td><td>([^<]*)</td></tr>'
     rows = re.findall(pattern, content)
+    print(f"[DEBUG] Linhas encontradas pelo regex: {len(rows)}")
+
+    if len(rows) == 0:
+        # tenta mostrar um trecho com bgcolor para diagnóstico
+        sample = re.findall(r'<tr bgcolor[^>]*>.*?</tr>', content[:5000])
+        print(f"[DEBUG] Amostra de <tr bgcolor>: {sample[:2]}")
 
     ops = []
     for r in rows:
@@ -27,7 +35,6 @@ def converter(html_path: str, output_dir: str):
 
     entradas = [o for o in ops if o['direcao'] == 'in']
     saidas   = [o for o in ops if o['direcao'] == 'out']
-
     pares = []
     for i in range(min(len(entradas), len(saidas))):
         e = entradas[i]
@@ -42,30 +49,11 @@ def converter(html_path: str, output_dir: str):
     losses = len([p for p in pares if p['res'] < 0])
     lucro  = round(sum(p['res'] for p in pares), 2)
     saldo_final = pares[-1]['saldo'] if pares else 10000.0
-
     nome_html   = Path(html_path).stem
     output_path = os.path.join(output_dir, f'{nome_html}.json')
-
     resultado_final = {
         'ativo': 'BTC/USD', 'periodo': nome_html.replace('_', ' '),
         'deposito': 10000.0, 'lucro': lucro,
         'retorno': round((lucro / 10000) * 100, 2),
         'operacoes': len(pares), 'wins': wins, 'losses': losses,
-        'win_rate': round((wins / len(pares)) * 100, 1) if pares else 0,
-        'saldo_final': saldo_final, 'ops': pares
-    }
-
-    os.makedirs(output_dir, exist_ok=True)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(resultado_final, f, ensure_ascii=False, indent=2)
-
-    print(f"Convertido: {html_path} -> {output_path}")
-    print(f"Operacoes: {len(pares)} | Lucro: ${lucro} | Win rate: {resultado_final['win_rate']}%")
-
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Uso: python convert_relatorio.py <arquivo.html> [pasta_saida]")
-        sys.exit(1)
-    html  = sys.argv[1]
-    saida = sys.argv[2] if len(sys.argv) > 2 else 'src/data/relatorios/json'
-    converter(html, saida)
+        'win_rate': round((wins / len(p
