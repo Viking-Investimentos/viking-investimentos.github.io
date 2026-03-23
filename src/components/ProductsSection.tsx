@@ -11,7 +11,7 @@ const tools = [
   {
     name: 'BreakEven',
     icon: ShieldCheck,
-    desc: 'Protege automaticamente a operação ao levar o stop para o ponto desejado, eliminando risco após o mercado andar a favor.',
+    desc: 'Protege automaticamente a operação ao levar o stop para o ponto desejado, eliminando risco após o mercado andar a favor.100% ajustável.',
   },
   {
     name: 'Trailing Stop',
@@ -27,7 +27,7 @@ const tools = [
   {
     name: 'Parciais',
     icon: SplitSquareHorizontal,
-    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo. 3 niveis de parciais, ajustáveis',
+    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo. 3 níveis de parciais, ajustáveis',
     optional: true,
   },
 ];
