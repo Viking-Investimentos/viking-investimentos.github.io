@@ -9,25 +9,25 @@ import eduReinvestimentos from '@/assets/edu-reinvestimentos.png';
 
 const tools = [
   {
-    name: 'Proteção Automática de Capital',
+    name: 'BreakEven',
     icon: ShieldCheck,
-    desc: 'Evite perdas desnecessárias. O sistema protege automaticamente suas operações assim que atingem um nível seguro.',
+    desc: 'Protege automaticamente a operação ao levar o stop para o ponto de entrada, eliminando risco após o mercado andar a favor.',
   },
   {
-    name: 'Maximização Inteligente de Lucros',
+    name: 'Trailing Stop',
     icon: TrendingUp,
-    desc: 'O robô acompanha o movimento do mercado em tempo real, buscando extrair o máximo das operações vencedoras.',
+    desc: 'Acompanha o movimento do preço ajustando o stop progressivamente, permitindo capturar movimentos maiores com proteção dinâmica.',
   },
   {
-    name: 'Entrada Estratégica Avançada',
+    name: 'Gradiente',
     icon: Layers,
-    desc: 'Entradas refinadas com lógica inteligente, buscando melhor posicionamento e maior eficiência no preço médio.',
+    desc: 'Sistema de entradas progressivas que melhora o preço médio e otimiza o posicionamento da operação.',
     optional: true,
   },
   {
-    name: 'Realização Parcial de Lucros',
+    name: 'Parciais',
     icon: SplitSquareHorizontal,
-    desc: 'Parte das operações pode ser encerrada automaticamente para garantir resultados ao longo do movimento.',
+    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo.',
     optional: true,
   },
 ];
@@ -82,7 +82,7 @@ const BtcModal = ({ onClose }: { onClose: () => void }) => {
             </h4>
             <p className="text-muted leading-relaxed text-sm">
               Este robô foi desenvolvido com foco em precisão e controle de risco, operando apenas em cenários específicos de alta probabilidade.
-              A estratégia prioriza qualidade de entrada, proteção de capital e execução inteligente, evitando operações desnecessárias e reduzindo exposição ao mercado.
+              A estratégia prioriza qualidade de entrada, proteção de capital e execução inteligente, evitando operações desnecessárias.
             </p>
           </div>
 
@@ -91,8 +91,7 @@ const BtcModal = ({ onClose }: { onClose: () => void }) => {
               Funcionamento
             </h4>
             <p className="text-muted text-sm">
-              O sistema atua de forma seletiva, utilizando filtros avançados para identificar oportunidades mais qualificadas.
-              Cada operação passa por uma estrutura completa de gestão, incluindo proteção automática, realização parcial de lucros e acompanhamento dinâmico do mercado.
+              O sistema utiliza uma estrutura completa de gestão de operações, combinando proteção automática, realização parcial de lucros e acompanhamento dinâmico do mercado para maior eficiência.
             </p>
           </div>
 
@@ -112,23 +111,16 @@ const ProductsSection = () => {
     <section id="produtos" className="py-24 bg-background relative overflow-hidden">
       {modalAberto && <BtcModal onClose={() => setModalAberto(false)} />}
 
-      <img
-        src={savingsEducation}
-        alt=""
-        aria-hidden
-        className="absolute top-12 right-0 w-64 h-64 object-cover opacity-10 blur-[2px] pointer-events-none select-none"
-      />
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <span className="inline-block bg-primary/10 text-primary font-montserrat text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
             Produtos
           </span>
           <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-foreground tracking-[-0.02em] mb-4">
-            Automação Inteligente para Traders que Buscam Consistência
+            Automação Inteligente com Gestão Profissional de Operações
           </h2>
           <p className="text-muted max-w-2xl mx-auto">
-            Um sistema completo de gestão de operações que protege o capital, controla o risco e busca maximizar resultados de forma automática.
+            Um sistema completo que atua desde a entrada até a saída da operação, focado em proteção de capital e maximização de resultados.
           </p>
         </div>
 
@@ -151,7 +143,6 @@ const ProductsSection = () => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
