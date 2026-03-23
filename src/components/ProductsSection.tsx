@@ -1,48 +1,30 @@
 import { useState } from 'react';
-import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, Phone, Mail, Play, Lock, X } from 'lucide-react';
+import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, X } from 'lucide-react';
 import btcGraphic from '@/assets/btc-hero-graphic.png';
-import exponentialGrowth from '@/assets/exponential-growth.png';
-import savingsEducation from '@/assets/savings-education.png';
-import eduMercado from '@/assets/edu-mercado-financeiro.png';
-import eduFracoes from '@/assets/edu-fracoes.png';
-import eduReinvestimentos from '@/assets/edu-reinvestimentos.png';
 
 const tools = [
   {
     name: 'BreakEven',
     icon: ShieldCheck,
-    desc: 'Protege automaticamente a operação ao levar o stop para o ponto desejado, eliminando risco após o mercado andar a favor.100% ajustável.',
+    desc: 'Elimina o risco da operação ao mover automaticamente o stop para o ponto de entrada após o mercado evoluir a favor. Totalmente ajustável.',
   },
   {
     name: 'Trailing Stop',
     icon: TrendingUp,
-    desc: 'Após atingir o ponto de trail, o algoritmo acompanha o movimento do preço, ajustando o stop progressivamente, permitindo capturar movimentos maiores com proteção dinâmica.',
+    desc: 'Após atingir o gatilho de ativação, o sistema acompanha o preço ajustando o stop progressivamente, protegendo ganhos e permitindo capturar movimentos mais longos.',
   },
   {
     name: 'Gradiente',
     icon: Layers,
-    desc: 'Sistema de entradas progressivas que melhora o preço médio e otimiza o posicionamento da operação. 100% ajustável',
+    desc: 'Sistema de entradas progressivas que melhora o preço médio e otimiza o posicionamento da operação. Totalmente ajustável.',
     optional: true,
   },
   {
     name: 'Parciais',
     icon: SplitSquareHorizontal,
-    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo. 3 níveis de parciais, ajustáveis',
+    desc: 'Realiza lucros de forma estratégica ao longo da operação, garantindo ganhos mesmo antes do movimento completo. Possui múltiplos níveis configuráveis.',
     optional: true,
   },
-];
-
-const modules = [
-  { id: '01', title: 'Noções Básicas sobre o Mercado Financeiro', status: 'Disponível', active: true, meta: '4 Aulas • Gratuito' },
-  { id: '02', title: 'Análise Técnica e Leitura de Gráficos', status: 'Em Breve', active: false, meta: '8 Aulas' },
-  { id: '03', title: 'Trading Algorítmico com MQL5', status: 'Em Breve', active: false, meta: '12 Aulas' },
-];
-
-const lessons = [
-  { title: 'O que é o Mercado Financeiro?', active: true, image: eduMercado },
-  { title: 'Participantes do Mercado', active: true, image: eduFracoes },
-  { title: 'Ativos Financeiros e Classes', active: false, image: eduReinvestimentos },
-  { title: 'Como Funciona a Bolsa de Valores', active: false, image: null },
 ];
 
 const BtcModal = ({ onClose }: { onClose: () => void }) => {
@@ -130,11 +112,16 @@ const ProductsSection = () => {
               key={tool.name}
               className="relative bg-card border border-foreground/5 rounded-lg p-6 hover:border-primary/30 transition-colors group"
             >
-              {tool.optional && (
-                <span className="absolute top-3 right-3 text-[10px] font-montserrat font-bold tracking-wider uppercase text-muted bg-surface-light px-2 py-0.5 rounded">
-                  Modo avançado
-                </span>
-              )}
+              <span
+                className={`absolute top-3 right-3 text-[10px] font-montserrat font-bold tracking-wider uppercase px-2 py-0.5 rounded ${
+                  tool.optional
+                    ? 'bg-primary/20 text-primary'
+                    : 'bg-foreground/10 text-muted'
+                }`}
+              >
+                {tool.optional ? 'Modo avançado' : 'Modo standard'}
+              </span>
+
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                 <tool.icon className="text-primary" size={20} />
               </div>
