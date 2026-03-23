@@ -11,23 +11,23 @@ const tools = [
   {
     name: 'BreakEven',
     icon: ShieldCheck,
-    desc: 'Protege automaticamente a operação ao levar o stop para o ponto de entrada, eliminando risco após o mercado andar a favor.',
+    desc: 'Protege automaticamente a operação ao levar o stop para o ponto desejado, eliminando risco após o mercado andar a favor.',
   },
   {
     name: 'Trailing Stop',
     icon: TrendingUp,
-    desc: 'Acompanha o movimento do preço ajustando o stop progressivamente, permitindo capturar movimentos maiores com proteção dinâmica.',
+    desc: 'Após atingir o ponto de trail, o algoritmo acompanha o movimento do preço, ajustando o stop progressivamente, permitindo capturar movimentos maiores com proteção dinâmica.',
   },
   {
     name: 'Gradiente',
     icon: Layers,
-    desc: 'Sistema de entradas progressivas que melhora o preço médio e otimiza o posicionamento da operação.',
+    desc: 'Sistema de entradas progressivas que melhora o preço médio e otimiza o posicionamento da operação. 100% ajustável',
     optional: true,
   },
   {
     name: 'Parciais',
     icon: SplitSquareHorizontal,
-    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo.',
+    desc: 'Realiza parte dos lucros automaticamente ao longo da operação, garantindo resultados mesmo antes do movimento completo. 3 niveis de parciais, ajustáveis',
     optional: true,
   },
 ];
