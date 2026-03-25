@@ -14,6 +14,7 @@ interface ReportData {
   retorno: string;
   drawdownMaximo: string;
   riscoMaximo: string;
+  observacoes: string;
   prints: { label: string; sublabel: string; url: string }[];
 }
 
@@ -35,6 +36,7 @@ const emptyReport = (trimestre: string): ReportData => ({
   retorno: '',
   drawdownMaximo: '',
   riscoMaximo: '',
+  observacoes: '',
   prints: [
     { label: 'Print de resultados', sublabel: 'MT5 - Resumo geral', url: '' },
     { label: 'Curva de capital', sublabel: 'MT5 - Gráfico de saldo', url: '' },
@@ -337,6 +339,22 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Observações do período */}
+          <div className="border border-foreground/10 rounded-lg p-4 mb-4">
+            <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Observações do período</span>
+            {isEditable ? (
+              <textarea
+                value={currentReport.observacoes}
+                onChange={(e) => updateField('observacoes', e.target.value)}
+                placeholder="Adicione observações sobre o período..."
+                rows={3}
+                className="block w-full bg-background border border-foreground/10 rounded px-3 py-2 text-foreground text-sm font-montserrat mt-1 focus:outline-none focus:border-primary resize-none"
+              />
+            ) : (
+              <p className="text-foreground text-sm font-montserrat mt-1 whitespace-pre-wrap">{currentReport.observacoes || '—'}</p>
+            )}
           </div>
 
           {/* Print areas */}
