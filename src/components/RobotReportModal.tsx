@@ -341,6 +341,22 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             </div>
           </div>
 
+          {/* Observações do período */}
+          <div className="border border-foreground/10 rounded-lg p-4 mb-4">
+            <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Observações do período</span>
+            {isEditable ? (
+              <textarea
+                value={currentReport.observacoes}
+                onChange={(e) => updateField('observacoes', e.target.value)}
+                placeholder="Adicione observações sobre o período..."
+                rows={3}
+                className="block w-full bg-background border border-foreground/10 rounded px-3 py-2 text-foreground text-sm font-montserrat mt-1 focus:outline-none focus:border-primary resize-none"
+              />
+            ) : (
+              <p className="text-foreground text-sm font-montserrat mt-1 whitespace-pre-wrap">{currentReport.observacoes || '—'}</p>
+            )}
+          </div>
+
           {/* Print areas */}
           <div className="grid grid-cols-2 gap-3">
             {currentReport.prints.map((print, i) => {
