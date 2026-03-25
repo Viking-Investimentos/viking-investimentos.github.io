@@ -36,6 +36,7 @@ const emptyReport = (trimestre: string): ReportData => ({
   retorno: '',
   drawdownMaximo: '',
   riscoMaximo: '',
+  observacoes: '',
   prints: [
     { label: 'Print de resultados', sublabel: 'MT5 - Resumo geral', url: '' },
     { label: 'Curva de capital', sublabel: 'MT5 - Gráfico de saldo', url: '' },
