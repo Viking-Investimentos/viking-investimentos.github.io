@@ -14,6 +14,7 @@ interface ReportData {
   retorno: string;
   drawdownMaximo: string;
   riscoMaximo: string;
+  observacoes: string;
   prints: { label: string; sublabel: string; url: string }[];
 }
 
