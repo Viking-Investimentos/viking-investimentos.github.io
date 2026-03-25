@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Bot, ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal, X } from 'lucide-react';
-import btcGraphic from '@/assets/btc-hero-graphic.png';
+import { ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal } from 'lucide-react';
+import RobotReportModal from './RobotReportModal';
 
 const tools = [
   {
@@ -27,71 +27,17 @@ const tools = [
   },
 ];
 
-const BtcModal = ({ onClose }: { onClose: () => void }) => {
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-card border border-foreground/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative h-40 overflow-hidden rounded-t-2xl">
-          <img src={btcGraphic} alt="BTC/USD" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-          <div className="absolute bottom-4 left-6 flex items-center gap-3">
-            <Bot className="text-primary" size={20} />
-            <h3 className="font-montserrat text-xl font-bold text-foreground">Robô BTC/USD</h3>
-          </div>
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 bg-foreground/10 hover:bg-foreground/20 rounded-full p-1.5 transition-colors"
-          >
-            <X size={16} className="text-foreground" />
-          </button>
-        </div>
-
-        <div className="p-6">
-          <p className="text-primary font-montserrat text-sm font-medium tracking-wide mb-4">
-            Sistema automatizado para mercados globais
-          </p>
-
-          <div className="mb-6">
-            <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">
-              Sobre o Robô
-            </h4>
-            <p className="text-muted leading-relaxed text-sm">
-              Este robô foi desenvolvido com foco em precisão e controle de risco, operando apenas em cenários específicos de alta probabilidade.
-              A estratégia prioriza qualidade de entrada, proteção de capital e execução inteligente, evitando operações desnecessárias.
-            </p>
-          </div>
-
-          <div className="mb-6 border border-dashed border-foreground/10 rounded-lg p-4 bg-surface-light/50">
-            <h4 className="font-montserrat font-semibold text-foreground text-sm uppercase tracking-wider mb-2">
-              Funcionamento
-            </h4>
-            <p className="text-muted text-sm">
-              O sistema utiliza uma estrutura completa de gestão de operações, combinando proteção automática, realização parcial de lucros e acompanhamento dinâmico do mercado para maior eficiência.
-            </p>
-          </div>
-
-          <button className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all active:scale-95">
-            Conhecer Robô Bitcoin Viking
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+const internationalRobots = ['BTC/USD', 'DAX', 'FOREX'];
+const nationalRobots = ['Mini Índice', 'Mini Dólar'];
 
 const ProductsSection = () => {
-  const [modalAberto, setModalAberto] = useState(false);
+  const [selectedRobot, setSelectedRobot] = useState<string | null>(null);
 
   return (
     <section id="produtos" className="py-24 bg-background relative overflow-hidden">
-      {modalAberto && <BtcModal onClose={() => setModalAberto(false)} />}
+      {selectedRobot && (
+        <RobotReportModal robotName={selectedRobot} onClose={() => setSelectedRobot(null)} />
+      )}
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
@@ -106,7 +52,8 @@ const ProductsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+        {/* Tool cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
           {tools.map((tool) => (
             <div
               key={tool.name}
@@ -121,7 +68,6 @@ const ProductsSection = () => {
               >
                 {tool.optional ? 'Modo avançado' : 'Modo standard'}
               </span>
-
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                 <tool.icon className="text-primary" size={20} />
               </div>
@@ -129,6 +75,55 @@ const ProductsSection = () => {
               <p className="text-sm text-muted leading-relaxed">{tool.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* Market groups */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Internacional */}
+          <div className="rounded-xl overflow-hidden border border-foreground/10">
+            <div className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider" style={{ backgroundColor: '#1a5fa8' }}>
+              Mercado Internacional
+            </div>
+            <div className="p-5 bg-card flex flex-wrap gap-3">
+              {internationalRobots.map((robot) => (
+                <button
+                  key={robot}
+                  onClick={() => setSelectedRobot(robot)}
+                  className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
+                  style={{
+                    backgroundColor: '#d4d4d4',
+                    color: '#1a1a1a',
+                    boxShadow: '0 4px 0 #aaaaaa',
+                  }}
+                >
+                  {robot}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Nacional */}
+          <div className="rounded-xl overflow-hidden border border-foreground/10">
+            <div className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider" style={{ backgroundColor: '#3a7d1e' }}>
+              Mercado Nacional
+            </div>
+            <div className="p-5 bg-card flex flex-wrap gap-3">
+              {nationalRobots.map((robot) => (
+                <button
+                  key={robot}
+                  onClick={() => setSelectedRobot(robot)}
+                  className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
+                  style={{
+                    backgroundColor: '#ffd000',
+                    color: '#1a1a1a',
+                    boxShadow: '0 4px 0 #b38a00',
+                  }}
+                >
+                  {robot}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
