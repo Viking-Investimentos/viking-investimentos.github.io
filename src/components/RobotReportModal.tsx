@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Eye, Settings, Upload, Lock, FileText, BarChart3, TrendingUp, Printer } from 'lucide-react';
 import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
+import vikingAlphaDax from '@/assets/viking-alpha-dax.png';
 
 interface ReportData {
   titulo: string;
