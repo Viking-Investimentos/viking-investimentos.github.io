@@ -87,20 +87,32 @@ const ProductsSection = () => {
             </div>
             <div className="p-5 bg-card flex flex-wrap gap-3">
               {internationalRobots.map((robot) => (
-                <button
-                  key={robot}
-                  onClick={() => setSelectedRobot(robot)}
-                  className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
-                  style={{
-                    backgroundColor: '#d4d4d4',
-                    color: '#1a1a1a',
-                    boxShadow: '0 4px 0 #aaaaaa',
-                  }}
-                >
-                  {robot}
-                </button>
-              ))}
-            </div>
+                 <button
+                   key={robot}
+                   onClick={() => setSelectedRobot(robot)}
+                   className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
+                   style={{
+                     backgroundColor: '#d4d4d4',
+                     color: '#1a1a1a',
+                     boxShadow: '0 4px 0 #aaaaaa',
+                   }}
+                 >
+                   {robot}
+                 </button>
+               ))}
+             </div>
+             {/* Viking Alpha BTC/USD highlight */}
+             <div className="p-4 border-t border-foreground/5 flex items-center gap-4">
+               <img
+                 src={vikingAlphaBtcusd}
+                 alt="Viking Alpha - Ragnar Edition - BTC/USD"
+                 className="w-20 h-20 rounded-lg object-cover shadow-lg"
+               />
+               <div>
+                 <h4 className="font-montserrat font-bold text-foreground text-sm">Viking Alpha</h4>
+                 <p className="text-muted text-xs font-montserrat">Ragnar Edition – BTC/USD</p>
+               </div>
+             </div>
           </div>
 
           {/* Nacional */}
