@@ -142,9 +142,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={() => setMode('visualizar')}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'visualizar'
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'text-white'
                     : 'bg-card text-muted hover:text-foreground'
                 }`}
+                style={mode === 'visualizar' ? { backgroundColor: '#22c55e' } : {}}
               >
                 Visualizar
               </button>
@@ -152,9 +153,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={handleGerenciar}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'gerenciar'
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'text-white'
                     : 'bg-card text-muted hover:text-foreground'
                 }`}
+                style={mode === 'gerenciar' ? { backgroundColor: '#22c55e' } : {}}
               >
                 Gerenciar
               </button>
@@ -404,6 +406,20 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
               );
             })}
           </div>
+
+          {/* Save button */}
+          {isEditable && (
+            <button
+              onClick={() => {
+                saveRobotData(robotName, reports);
+                setMode('visualizar');
+              }}
+              className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-white transition-all hover:brightness-110"
+              style={{ backgroundColor: '#22c55e' }}
+            >
+              Salvar Relatório
+            </button>
+          )}
         </div>
       </div>
     </div>

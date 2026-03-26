@@ -4,6 +4,7 @@ import RobotReportModal from './RobotReportModal';
 import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
 import vikingAlphaDax from '@/assets/viking-alpha-dax.png';
 import forexComingSoon from '@/assets/forex-coming-soon.png';
+import nationalComingSoon from '@/assets/national-coming-soon.png';
 
 const tools = [
   {
@@ -45,8 +46,8 @@ const internationalRobots: RobotItem[] = [
 ];
 
 const nationalRobots: RobotItem[] = [
-  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: '', comingSoon: true },
-  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: '', comingSoon: true },
+  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
+  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
 ];
 
 const RobotList = ({
