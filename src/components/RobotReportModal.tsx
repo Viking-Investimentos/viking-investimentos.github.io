@@ -142,9 +142,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={() => setMode('visualizar')}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'visualizar'
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'text-white'
                     : 'bg-card text-muted hover:text-foreground'
                 }`}
+                style={mode === 'visualizar' ? { backgroundColor: '#22c55e' } : {}}
               >
                 Visualizar
               </button>
@@ -152,9 +153,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={handleGerenciar}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'gerenciar'
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'text-white'
                     : 'bg-card text-muted hover:text-foreground'
                 }`}
+                style={mode === 'gerenciar' ? { backgroundColor: '#22c55e' } : {}}
               >
                 Gerenciar
               </button>

@@ -46,8 +46,8 @@ const internationalRobots: RobotItem[] = [
 ];
 
 const nationalRobots: RobotItem[] = [
-  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: '', comingSoon: true },
-  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: '', comingSoon: true },
+  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
+  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
 ];
 
 const RobotList = ({
