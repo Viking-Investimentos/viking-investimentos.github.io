@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Eye, Settings, Upload, Lock, FileText, BarChart3, TrendingUp, Printer } from 'lucide-react';
+import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
 
 interface ReportData {
   titulo: string;
@@ -213,11 +214,20 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
         </div>
 
         {/* Robot title */}
-        <div className="p-4 border-b border-foreground/10">
-          <h3 className="font-montserrat text-lg font-bold text-foreground">Viking {robotName}</h3>
-          <p className="text-muted text-xs font-montserrat">
-            {currentReport.titulo || `Viking ${robotName} – FX Globe Backtest – ${currentReport.periodo}`}
-          </p>
+        <div className="p-4 border-b border-foreground/10 flex items-center gap-4">
+          {robotName === 'BTC/USD' && (
+            <img
+              src={vikingAlphaBtcusd}
+              alt="Viking Alpha - Ragnar Edition"
+              className="w-14 h-14 rounded-lg object-cover shadow-md"
+            />
+          )}
+          <div>
+            <h3 className="font-montserrat text-lg font-bold text-foreground">Viking {robotName}</h3>
+            <p className="text-muted text-xs font-montserrat">
+              {currentReport.titulo || `Viking ${robotName} – FX Globe Backtest – ${currentReport.periodo}`}
+            </p>
+          </div>
         </div>
 
         {/* Dashboard */}
