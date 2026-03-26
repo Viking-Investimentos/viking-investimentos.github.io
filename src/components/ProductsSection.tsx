@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal } from 'lucide-react';
 import RobotReportModal from './RobotReportModal';
+import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
 
 const tools = [
   {
