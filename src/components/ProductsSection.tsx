@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { ShieldCheck, TrendingUp, Layers, SplitSquareHorizontal } from 'lucide-react';
 import RobotReportModal from './RobotReportModal';
 import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
+import vikingAlphaDax from '@/assets/viking-alpha-dax.png';
+import forexComingSoon from '@/assets/forex-coming-soon.png';
 
 const tools = [
   {
@@ -28,8 +30,80 @@ const tools = [
   },
 ];
 
-const internationalRobots = ['BTC/USD', 'DAX', 'FOREX'];
-const nationalRobots = ['Mini Índice', 'Mini Dólar'];
+interface RobotItem {
+  id: string;
+  name: string;
+  subtitle: string;
+  image: string;
+  comingSoon?: boolean;
+}
+
+const internationalRobots: RobotItem[] = [
+  { id: 'BTC/USD', name: 'Viking Alpha', subtitle: 'Ragnar Edition – BTC/USD', image: vikingAlphaBtcusd },
+  { id: 'DAX', name: 'Viking Alpha', subtitle: 'Ivar Edition – DAX', image: vikingAlphaDax },
+  { id: 'FOREX', name: 'Viking Alpha', subtitle: 'FOREX', image: forexComingSoon, comingSoon: true },
+];
+
+const nationalRobots: RobotItem[] = [
+  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: '', comingSoon: true },
+  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: '', comingSoon: true },
+];
+
+const RobotList = ({
+  robots,
+  onSelect,
+  buttonStyle,
+}: {
+  robots: RobotItem[];
+  onSelect: (id: string) => void;
+  buttonStyle: React.CSSProperties;
+}) => (
+  <div className="divide-y divide-foreground/10">
+    {robots.map((robot) => (
+      <div
+        key={robot.id}
+        className="flex items-center gap-4 p-4"
+      >
+        {/* Image */}
+        <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-foreground/5">
+          {robot.image ? (
+            <img
+              src={robot.image}
+              alt={`${robot.name} - ${robot.subtitle}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-muted text-[10px] font-montserrat font-bold uppercase tracking-wider">
+                Coming Soon
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Text */}
+        <div className="flex-1 min-w-0">
+          <h4 className="font-montserrat font-bold text-foreground text-sm">{robot.name}</h4>
+          <p className="text-muted text-xs font-montserrat">{robot.subtitle}</p>
+        </div>
+
+        {/* Button */}
+        <button
+          onClick={() => !robot.comingSoon && onSelect(robot.id)}
+          className={`font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all flex-shrink-0 ${
+            robot.comingSoon
+              ? 'opacity-50 cursor-default'
+              : 'hover:-translate-y-[3px] active:translate-y-0 cursor-pointer'
+          }`}
+          style={buttonStyle}
+          disabled={robot.comingSoon}
+        >
+          {robot.id}
+        </button>
+      </div>
+    ))}
+  </div>
+);
 
 const ProductsSection = () => {
   const [selectedRobot, setSelectedRobot] = useState<string | null>(null);
@@ -82,59 +156,43 @@ const ProductsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Internacional */}
           <div className="rounded-xl overflow-hidden border border-foreground/10">
-            <div className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider" style={{ backgroundColor: '#1a5fa8' }}>
+            <div
+              className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider"
+              style={{ backgroundColor: '#1a5fa8' }}
+            >
               Mercado Internacional
             </div>
-            <div className="p-5 bg-card flex flex-wrap gap-3">
-              {internationalRobots.map((robot) => (
-                 <button
-                   key={robot}
-                   onClick={() => setSelectedRobot(robot)}
-                   className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
-                   style={{
-                     backgroundColor: '#d4d4d4',
-                     color: '#1a1a1a',
-                     boxShadow: '0 4px 0 #aaaaaa',
-                   }}
-                 >
-                   {robot}
-                 </button>
-               ))}
-             </div>
-             {/* Viking Alpha BTC/USD highlight */}
-             <div className="p-4 border-t border-foreground/5 flex items-center gap-4">
-               <img
-                 src={vikingAlphaBtcusd}
-                 alt="Viking Alpha - Ragnar Edition - BTC/USD"
-                 className="w-20 h-20 rounded-lg object-cover shadow-lg"
-               />
-               <div>
-                 <h4 className="font-montserrat font-bold text-foreground text-sm">Viking Alpha</h4>
-                 <p className="text-muted text-xs font-montserrat">Ragnar Edition – BTC/USD</p>
-               </div>
-             </div>
+            <div className="bg-card">
+              <RobotList
+                robots={internationalRobots}
+                onSelect={setSelectedRobot}
+                buttonStyle={{
+                  backgroundColor: '#d4d4d4',
+                  color: '#1a1a1a',
+                  boxShadow: '0 4px 0 #aaaaaa',
+                }}
+              />
+            </div>
           </div>
 
           {/* Nacional */}
           <div className="rounded-xl overflow-hidden border border-foreground/10">
-            <div className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider" style={{ backgroundColor: '#3a7d1e' }}>
+            <div
+              className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider"
+              style={{ backgroundColor: '#3a7d1e' }}
+            >
               Mercado Nacional
             </div>
-            <div className="p-5 bg-card flex flex-wrap gap-3">
-              {nationalRobots.map((robot) => (
-                <button
-                  key={robot}
-                  onClick={() => setSelectedRobot(robot)}
-                  className="font-montserrat font-bold text-sm px-5 py-2.5 rounded-lg transition-all hover:-translate-y-[3px] active:translate-y-0 cursor-pointer"
-                  style={{
-                    backgroundColor: '#ffd000',
-                    color: '#1a1a1a',
-                    boxShadow: '0 4px 0 #b38a00',
-                  }}
-                >
-                  {robot}
-                </button>
-              ))}
+            <div className="bg-card">
+              <RobotList
+                robots={nationalRobots}
+                onSelect={setSelectedRobot}
+                buttonStyle={{
+                  backgroundColor: '#ffd000',
+                  color: '#1a1a1a',
+                  boxShadow: '0 4px 0 #b38a00',
+                }}
+              />
             </div>
           </div>
         </div>
