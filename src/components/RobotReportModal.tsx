@@ -445,9 +445,11 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
               onClick={() => {
                 saveRobotData(robotName, reports);
                 setMode('visualizar');
+                setAuthenticated(false);
+                setPasswordInput('');
               }}
-              className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-white transition-all hover:brightness-110"
-              style={{ backgroundColor: '#22c55e' }}
+              className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-black transition-all hover:brightness-110"
+              style={{ backgroundColor: '#aaff00' }}
             >
               Salvar Relatório
             </button>
