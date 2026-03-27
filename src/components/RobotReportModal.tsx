@@ -77,11 +77,17 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
   const currentReport = reports[selectedReport];
 
   const handleGerenciar = () => {
-    if (authenticated) {
-      setMode('gerenciar');
-    } else {
+    if (!authenticated) {
       setShowPasswordPrompt(true);
+    } else {
+      setMode('gerenciar');
     }
+  };
+
+  const handleVisualizar = () => {
+    setMode('visualizar');
+    setAuthenticated(false);
+    setPasswordInput('');
   };
 
   const handlePasswordSubmit = () => {
@@ -140,7 +146,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Tab selector */}
             <div className="flex rounded-lg overflow-hidden border border-foreground/10">
               <button
-                onClick={() => setMode('visualizar')}
+                onClick={handleVisualizar}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'visualizar'
                     ? 'text-black'
@@ -439,9 +445,11 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
               onClick={() => {
                 saveRobotData(robotName, reports);
                 setMode('visualizar');
+                setAuthenticated(false);
+                setPasswordInput('');
               }}
-              className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-white transition-all hover:brightness-110"
-              style={{ backgroundColor: '#22c55e' }}
+              className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-black transition-all hover:brightness-110"
+              style={{ backgroundColor: '#aaff00' }}
             >
               Salvar Relatório
             </button>
