@@ -110,7 +110,7 @@ const ProductsSection = () => {
   const [selectedRobot, setSelectedRobot] = useState<string | null>(null);
 
   return (
-    <section id="produtos" className="py-24 bg-background relative overflow-hidden">
+    <section id="produtos" className="pt-16 pb-20 bg-background relative overflow-hidden">
       {selectedRobot && (
         <RobotReportModal robotName={selectedRobot} onClose={() => setSelectedRobot(null)} />
       )}
