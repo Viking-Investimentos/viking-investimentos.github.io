@@ -77,11 +77,17 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
   const currentReport = reports[selectedReport];
 
   const handleGerenciar = () => {
-    if (authenticated) {
-      setMode('gerenciar');
-    } else {
+    if (!authenticated) {
       setShowPasswordPrompt(true);
+    } else {
+      setMode('gerenciar');
     }
+  };
+
+  const handleVisualizar = () => {
+    setMode('visualizar');
+    setAuthenticated(false);
+    setPasswordInput('');
   };
 
   const handlePasswordSubmit = () => {
