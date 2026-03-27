@@ -72,6 +72,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [selectedReport, setSelectedReport] = useState(0);
   const [reports, setReports] = useState<ReportData[]>(() => loadRobotData(robotName));
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   const currentReport = reports[selectedReport];
 
