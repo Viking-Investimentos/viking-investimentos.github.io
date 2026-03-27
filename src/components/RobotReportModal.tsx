@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Eye, Settings, Upload, Lock, FileText, BarChart3, TrendingUp, Printer } from 'lucide-react';
+import { X, Eye, Settings, Upload, Lock, FileText, BarChart3, TrendingUp, Printer, Maximize2, Minimize2 } from 'lucide-react';
 import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
 import vikingAlphaDax from '@/assets/viking-alpha-dax.png';
 
@@ -72,6 +72,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [selectedReport, setSelectedReport] = useState(0);
   const [reports, setReports] = useState<ReportData[]>(() => loadRobotData(robotName));
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
 
   const currentReport = reports[selectedReport];
 
@@ -142,10 +143,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={() => setMode('visualizar')}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'visualizar'
-                    ? 'text-white'
-                    : 'bg-card text-muted hover:text-foreground'
+                    ? 'text-black'
+                    : 'text-white hover:brightness-125'
                 }`}
-                style={mode === 'visualizar' ? { backgroundColor: '#22c55e' } : {}}
+                style={{ backgroundColor: mode === 'visualizar' ? '#aaff00' : '#1a5fa8' }}
               >
                 Visualizar
               </button>
@@ -153,10 +154,10 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 onClick={handleGerenciar}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'gerenciar'
-                    ? 'text-white'
-                    : 'bg-card text-muted hover:text-foreground'
+                    ? 'text-black'
+                    : 'text-white hover:brightness-125'
                 }`}
-                style={mode === 'gerenciar' ? { backgroundColor: '#22c55e' } : {}}
+                style={{ backgroundColor: mode === 'gerenciar' ? '#aaff00' : '#1a5fa8' }}
               >
                 Gerenciar
               </button>
@@ -370,6 +371,22 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             )}
           </div>
 
+          {/* Fullscreen image overlay */}
+          {fullscreenImage && (
+            <div
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95"
+              onClick={() => setFullscreenImage(null)}
+            >
+              <button
+                onClick={() => setFullscreenImage(null)}
+                className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 rounded-full p-2 transition-colors z-10"
+              >
+                <X size={24} className="text-white" />
+              </button>
+              <img src={fullscreenImage} alt="Relatório em tela cheia" className="max-w-[95vw] max-h-[95vh] object-contain" />
+            </div>
+          )}
+
           {/* Print areas */}
           <div className="grid grid-cols-2 gap-3">
             {currentReport.prints.map((print, i) => {
@@ -380,7 +397,16 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                   className="border border-foreground/10 rounded-lg p-4 flex flex-col items-center justify-center text-center min-h-[100px] relative group hover:border-foreground/20 transition-colors"
                 >
                   {print.url ? (
-                    <img src={print.url} alt={print.label} className="w-full h-auto rounded max-h-40 object-contain" />
+                    <>
+                      <img src={print.url} alt={print.label} className="w-full h-auto rounded max-h-40 object-contain" />
+                      <button
+                        onClick={() => setFullscreenImage(print.url)}
+                        className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 rounded-full p-1.5 transition-colors opacity-0 group-hover:opacity-100"
+                        title="Expandir"
+                      >
+                        <Maximize2 size={14} className="text-white" />
+                      </button>
+                    </>
                   ) : (
                     <>
                       <Icon size={20} className="text-muted mb-2" />
