@@ -146,7 +146,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Tab selector */}
             <div className="flex rounded-lg overflow-hidden border border-foreground/10">
               <button
-                onClick={() => setMode('visualizar')}
+                onClick={handleVisualizar}
                 className={`px-4 py-1.5 text-xs font-montserrat font-bold transition-colors ${
                   mode === 'visualizar'
                     ? 'text-black'
