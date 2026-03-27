@@ -2,15 +2,17 @@ import { Mail } from 'lucide-react';
 import heroImage from '@/assets/viking-trading-bots-hero.png';
 
 const CtaSection = () => (
-  <section id="contato" className="py-24 relative overflow-hidden">
-    {/* Foggy sea background */}
+  <section id="contato" className="py-20 relative overflow-hidden">
+    {/* Gradient transition into CTA */}
+    <div className="absolute -top-12 left-0 right-0 h-12 bg-gradient-to-b from-background to-transparent z-10" />
+    {/* Foggy sea background — more solid/premium */}
     <img
       src={heroImage}
       alt=""
       aria-hidden
-      className="absolute inset-0 w-full h-full object-cover opacity-25 blur-[3px]"
+      className="absolute inset-0 w-full h-full object-cover opacity-50 blur-[2px]"
     />
-    <div className="absolute inset-0 bg-background/60" />
+    <div className="absolute inset-0 bg-background/40" />
 
     <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
       <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-[-0.02em]">
