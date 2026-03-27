@@ -10,7 +10,7 @@ const CtaSection = () => (
       aria-hidden
       className="absolute inset-0 w-full h-full object-cover opacity-25 blur-[3px]"
     />
-    <div className="absolute inset-0 bg-background/75" />
+    <div className="absolute inset-0 bg-background/60" />
 
     <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
       <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-[-0.02em]">
