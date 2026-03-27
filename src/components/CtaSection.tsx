@@ -1,19 +1,24 @@
 import { Mail } from 'lucide-react';
-import exponentialGrowth from '@/assets/exponential-growth.png';
+import heroImage from '@/assets/viking-trading-bots-hero.png';
 
 const CtaSection = () => (
-  <section id="contato" className="py-24 bg-surface-light relative overflow-hidden">
-    {/* Background visual */}
+  <section id="contato" className="py-24 relative overflow-hidden">
+    {/* Foggy sea background */}
     <img
-      src={exponentialGrowth}
+      src={heroImage}
       alt=""
       aria-hidden
-      className="absolute -right-20 top-1/2 -translate-y-1/2 w-96 h-96 object-cover opacity-[0.07] blur-[1px] pointer-events-none select-none"
+      className="absolute inset-0 w-full h-full object-cover opacity-25 blur-[3px]"
     />
+    <div className="absolute inset-0 bg-background/75" />
 
     <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-      <h2 className="font-montserrat text-3xl font-bold text-foreground mb-4 tracking-[-0.02em]">Fique por Dentro dos Lançamentos</h2>
-      <p className="text-muted mb-10 max-w-md mx-auto">Novos módulos, ferramentas e o EA Viking BTC/USD chegando em breve.</p>
+      <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-[-0.02em]">
+        Cadastre-se e fique por dentro dos lançamentos da <span className="text-primary">Viking</span>
+      </h2>
+      <p className="text-muted mb-10 max-w-lg mx-auto text-lg">
+        Novos bots com ferramentas exclusivas, chegando em breve.
+      </p>
       <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
         <div className="relative flex-grow">
           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-muted" size={18} />
