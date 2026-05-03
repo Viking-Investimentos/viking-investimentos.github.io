@@ -40,14 +40,14 @@ const emptyReport = (trimestre: string): ReportData => ({
   riscoMaximo: '',
   observacoes: '',
   prints: [
-    { label: 'Print de resultados', sublabel: 'MT5 - Resumo geral', url: '' },
-    { label: 'Curva de capital', sublabel: 'MT5 - Gráfico de saldo', url: '' },
-    { label: 'Relatório de operações', sublabel: 'MT5 - Lista de trades', url: '' },
-    { label: 'Gráfico de operações', sublabel: 'MT5 - Entradas e saídas', url: '' },
+    { label: 'Results screenshot', sublabel: 'MT5 - General summary', url: '' },
+    { label: 'Equity curve', sublabel: 'MT5 - Balance chart', url: '' },
+    { label: 'Trades report', sublabel: 'MT5 - Trade list', url: '' },
+    { label: 'Trades chart', sublabel: 'MT5 - Entries and exits', url: '' },
   ],
 });
 
-const TRIMESTRES = ['Jan – Mar', 'Abr – Jun', 'Jul – Set', 'Out – Dez'];
+const TRIMESTRES = ['Jan – Mar', 'Apr – Jun', 'Jul – Sep', 'Oct – Dec'];
 
 const getStorageKey = (robotName: string) => `viking_robot_${robotName.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
@@ -139,7 +139,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
         <div className="flex items-center justify-between p-4 border-b border-foreground/10">
           <div className="flex items-center gap-2">
             <span className="text-muted text-xs font-montserrat uppercase tracking-wider">
-              Relatório T{selectedReport + 1} {new Date().getFullYear()} – {robotName}
+              Report Q{selectedReport + 1} {new Date().getFullYear()} – {robotName}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -154,7 +154,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 }`}
                 style={{ backgroundColor: mode === 'visualizar' ? '#aaff00' : '#1a5fa8' }}
               >
-                Visualizar
+                View
               </button>
               <button
                 onClick={handleGerenciar}
@@ -165,7 +165,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 }`}
                 style={{ backgroundColor: mode === 'gerenciar' ? '#aaff00' : '#1a5fa8' }}
               >
-                Gerenciar
+                Manage
               </button>
             </div>
             <button
@@ -182,7 +182,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
           <div className="p-6 border-b border-foreground/10 bg-secondary/50">
             <div className="flex items-center gap-2 mb-3">
               <Lock size={16} className="text-primary" />
-              <span className="font-montserrat font-bold text-foreground text-sm">Acesso restrito</span>
+              <span className="font-montserrat font-bold text-foreground text-sm">Restricted access</span>
             </div>
             <div className="flex gap-2">
               <input
@@ -190,18 +190,18 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 value={passwordInput}
                 onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(false); }}
                 onKeyDown={(e) => e.key === 'Enter' && handlePasswordSubmit()}
-                placeholder="Digite a senha de gerenciamento"
+                placeholder="Enter management password"
                 className="flex-1 bg-background border border-foreground/10 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
               />
               <button
                 onClick={handlePasswordSubmit}
                 className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all"
               >
-                Entrar
+                Submit
               </button>
             </div>
             {passwordError && (
-              <p className="text-destructive text-xs mt-2 font-montserrat">Senha incorreta.</p>
+              <p className="text-destructive text-xs mt-2 font-montserrat">Incorrect password.</p>
             )}
           </div>
         )}
