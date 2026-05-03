@@ -4,7 +4,6 @@ import RobotReportModal from './RobotReportModal';
 import vikingAlphaBtcusd from '@/assets/viking-alpha-btcusd.png';
 import vikingAlphaDax from '@/assets/viking-alpha-dax.png';
 import forexComingSoon from '@/assets/forex-coming-soon.png';
-import nationalComingSoon from '@/assets/national-coming-soon.png';
 
 const tools = [
   {
@@ -34,20 +33,17 @@ const tools = [
 interface RobotItem {
   id: string;
   name: string;
+  flag: string;
   subtitle: string;
   image: string;
   comingSoon?: boolean;
 }
 
-const internationalRobots: RobotItem[] = [
-  { id: 'BTC/USD', name: 'Viking Alpha', subtitle: 'Ragnar Edition – BTC/USD', image: vikingAlphaBtcusd },
-  { id: 'DAX', name: 'Viking Alpha', subtitle: 'Ivar Edition – DAX', image: vikingAlphaDax },
-  { id: 'FOREX', name: 'Viking Alpha', subtitle: 'FOREX', image: forexComingSoon, comingSoon: true },
-];
-
-const nationalRobots: RobotItem[] = [
-  { id: 'Mini Índice', name: 'Mini Índice', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
-  { id: 'Mini Dólar', name: 'Mini Dólar', subtitle: 'Coming Soon', image: nationalComingSoon, comingSoon: true },
+const portfolioRobots: RobotItem[] = [
+  { id: 'BTC/USD', name: 'Viking BTC', flag: '₿', subtitle: 'Ragnar Edition – BTC/USD', image: vikingAlphaBtcusd },
+  { id: 'DAX', name: 'Viking DAX', flag: '🇩🇪', subtitle: 'Ivar Edition – DAX', image: vikingAlphaDax },
+  { id: 'USATEC', name: 'Viking Usatec', flag: '🇺🇸', subtitle: 'Coming Soon', image: forexComingSoon, comingSoon: true },
+  { id: 'HK50', name: 'Viking HK50', flag: '🇭🇰', subtitle: 'Coming Soon', image: forexComingSoon, comingSoon: true },
 ];
 
 const RobotList = ({
@@ -84,7 +80,10 @@ const RobotList = ({
 
         {/* Text */}
         <div className="flex-1 min-w-0">
-          <h4 className="font-montserrat font-bold text-foreground text-sm">{robot.name}</h4>
+          <h4 className="font-montserrat font-bold text-foreground text-sm flex items-center gap-2">
+            <span>{robot.name}</span>
+            <span className="text-base leading-none">{robot.flag}</span>
+          </h4>
           <p className="text-muted text-xs font-montserrat">{robot.subtitle}</p>
         </div>
 
@@ -153,48 +152,24 @@ const ProductsSection = () => {
           ))}
         </div>
 
-        {/* Market groups */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Internacional */}
-          <div className="rounded-xl overflow-hidden border border-foreground/10">
-            <div
-              className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider"
-              style={{ backgroundColor: '#1a5fa8' }}
-            >
-              Mercado Internacional
-            </div>
-            <div className="bg-card">
-              <RobotList
-                robots={internationalRobots}
-                onSelect={setSelectedRobot}
-                buttonStyle={{
-                  backgroundColor: '#d4d4d4',
-                  color: '#1a1a1a',
-                  boxShadow: '0 4px 0 #aaaaaa',
-                }}
-              />
-            </div>
+        {/* Our Portfolio */}
+        <div className="rounded-xl overflow-hidden border border-foreground/10">
+          <div
+            className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider"
+            style={{ backgroundColor: '#1a5fa8' }}
+          >
+            Our Portfolio
           </div>
-
-          {/* Nacional */}
-          <div className="rounded-xl overflow-hidden border border-foreground/10">
-            <div
-              className="px-5 py-3 font-montserrat font-bold text-sm text-white uppercase tracking-wider"
-              style={{ backgroundColor: '#3a7d1e' }}
-            >
-              Mercado Nacional
-            </div>
-            <div className="bg-card">
-              <RobotList
-                robots={nationalRobots}
-                onSelect={setSelectedRobot}
-                buttonStyle={{
-                  backgroundColor: '#ffd000',
-                  color: '#1a1a1a',
-                  boxShadow: '0 4px 0 #b38a00',
-                }}
-              />
-            </div>
+          <div className="bg-card">
+            <RobotList
+              robots={portfolioRobots}
+              onSelect={setSelectedRobot}
+              buttonStyle={{
+                backgroundColor: '#1a5fa8',
+                color: '#ffffff',
+                boxShadow: '0 4px 0 #103e6e',
+              }}
+            />
           </div>
         </div>
       </div>
