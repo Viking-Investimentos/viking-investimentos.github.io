@@ -1,23 +1,23 @@
 import { useState } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 
-const produtosDropdown = [
+const productsDropdown = [
   {
-    title: 'Mercado Nacional',
-    items: ['Mini Índice', 'Mini Dólar', 'Ações'],
+    title: 'Domestic Market',
+    items: ['Mini Index', 'Mini Dollar', 'Stocks'],
   },
   {
-    title: 'Mercado Internacional',
-    items: ['Bitcoin', 'Índices Internacionais', 'Forex'],
+    title: 'International Market',
+    items: ['Bitcoin', 'International Indices', 'Forex'],
   },
 ];
 
 const navLinks = [
-  { label: 'Início', href: '#início' },
-  { label: 'Educação', href: '#educação' },
-  { label: 'Produtos', href: '#produtos', dropdown: true },
-   { label: 'Planos', href: '#planos' },
-  { label: 'Contato', href: '#contato' },
+  { label: 'Home', href: '#home' },
+  { label: 'Education', href: '#education' },
+  { label: 'Products', href: '#produtos', dropdown: true },
+  { label: 'Plans', href: '#planos' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 
@@ -28,7 +28,7 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-[#0a0e1a]/70 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#início" className="flex items-baseline gap-2">
+        <a href="#home" className="flex items-baseline gap-2">
           <span className="font-montserrat font-bold text-xl tracking-tighter text-foreground">VIKING</span>
           <span className="font-montserrat font-medium text-[10px] tracking-[0.2em] text-primary">INVESTIMENTOS</span>
         </a>
@@ -50,7 +50,7 @@ const Navbar = () => {
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   <div className="bg-[#0f1340]/95 backdrop-blur-xl border border-white/10 rounded-xl p-5 min-w-[320px] shadow-2xl">
                     <div className="grid grid-cols-2 gap-6">
-                      {produtosDropdown.map((section) => (
+                      {productsDropdown.map((section) => (
                         <div key={section.title}>
                           <h4 className="font-montserrat text-xs font-bold text-primary tracking-wider uppercase mb-3">
                             {section.title}
@@ -88,10 +88,10 @@ const Navbar = () => {
         {/* CTA + Mobile toggle */}
         <div className="flex items-center gap-4">
           <a
-            href="#contato"
+            href="#contact"
             className="bg-primary hover:brightness-110 text-primary-foreground px-6 py-2.5 rounded-full font-montserrat font-bold text-sm transition-all active:scale-95 shadow-[0_4px_20px_hsl(74,100%,43%,0.2)]"
           >
-            Acesso Gratuito
+            Free Access
           </a>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -117,7 +117,7 @@ const Navbar = () => {
               </a>
               {link.dropdown && (
                 <div className="pl-4 space-y-3 mt-2">
-                  {produtosDropdown.map((section) => (
+                  {productsDropdown.map((section) => (
                     <div key={section.title}>
                       <span className="font-montserrat text-xs font-bold text-primary tracking-wider uppercase">
                         {section.title}
