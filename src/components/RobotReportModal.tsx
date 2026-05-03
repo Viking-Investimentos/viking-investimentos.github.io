@@ -40,14 +40,14 @@ const emptyReport = (trimestre: string): ReportData => ({
   riscoMaximo: '',
   observacoes: '',
   prints: [
-    { label: 'Print de resultados', sublabel: 'MT5 - Resumo geral', url: '' },
-    { label: 'Curva de capital', sublabel: 'MT5 - Gráfico de saldo', url: '' },
-    { label: 'Relatório de operações', sublabel: 'MT5 - Lista de trades', url: '' },
-    { label: 'Gráfico de operações', sublabel: 'MT5 - Entradas e saídas', url: '' },
+    { label: 'Results screenshot', sublabel: 'MT5 - General summary', url: '' },
+    { label: 'Equity curve', sublabel: 'MT5 - Balance chart', url: '' },
+    { label: 'Trades report', sublabel: 'MT5 - Trade list', url: '' },
+    { label: 'Trades chart', sublabel: 'MT5 - Entries and exits', url: '' },
   ],
 });
 
-const TRIMESTRES = ['Jan – Mar', 'Abr – Jun', 'Jul – Set', 'Out – Dez'];
+const TRIMESTRES = ['Jan – Mar', 'Apr – Jun', 'Jul – Sep', 'Oct – Dec'];
 
 const getStorageKey = (robotName: string) => `viking_robot_${robotName.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
@@ -139,7 +139,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
         <div className="flex items-center justify-between p-4 border-b border-foreground/10">
           <div className="flex items-center gap-2">
             <span className="text-muted text-xs font-montserrat uppercase tracking-wider">
-              Relatório T{selectedReport + 1} {new Date().getFullYear()} – {robotName}
+              Report Q{selectedReport + 1} {new Date().getFullYear()} – {robotName}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -154,7 +154,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 }`}
                 style={{ backgroundColor: mode === 'visualizar' ? '#aaff00' : '#1a5fa8' }}
               >
-                Visualizar
+                View
               </button>
               <button
                 onClick={handleGerenciar}
@@ -165,7 +165,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 }`}
                 style={{ backgroundColor: mode === 'gerenciar' ? '#aaff00' : '#1a5fa8' }}
               >
-                Gerenciar
+                Manage
               </button>
             </div>
             <button
@@ -182,7 +182,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
           <div className="p-6 border-b border-foreground/10 bg-secondary/50">
             <div className="flex items-center gap-2 mb-3">
               <Lock size={16} className="text-primary" />
-              <span className="font-montserrat font-bold text-foreground text-sm">Acesso restrito</span>
+              <span className="font-montserrat font-bold text-foreground text-sm">Restricted access</span>
             </div>
             <div className="flex gap-2">
               <input
@@ -190,18 +190,18 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 value={passwordInput}
                 onChange={(e) => { setPasswordInput(e.target.value); setPasswordError(false); }}
                 onKeyDown={(e) => e.key === 'Enter' && handlePasswordSubmit()}
-                placeholder="Digite a senha de gerenciamento"
+                placeholder="Enter management password"
                 className="flex-1 bg-background border border-foreground/10 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-primary"
               />
               <button
                 onClick={handlePasswordSubmit}
                 className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-montserrat font-bold text-sm hover:brightness-110 transition-all"
               >
-                Entrar
+                Submit
               </button>
             </div>
             {passwordError && (
-              <p className="text-destructive text-xs mt-2 font-montserrat">Senha incorreta.</p>
+              <p className="text-destructive text-xs mt-2 font-montserrat">Incorrect password.</p>
             )}
           </div>
         )}
@@ -218,7 +218,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                   : 'bg-foreground/5 text-muted hover:text-foreground hover:bg-foreground/10'
               }`}
             >
-              T{i + 1}
+              Q{i + 1}
             </button>
           ))}
         </div>
@@ -246,7 +246,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Row 1: Ativo + Período */}
             <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-foreground/5">
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Ativo</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Asset</span>
                 {isEditable ? (
                   <input value={currentReport.ativo} onChange={(e) => updateField('ativo', e.target.value)}
                     className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-foreground text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" />
@@ -255,7 +255,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 )}
               </div>
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Período</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Period</span>
                 {isEditable ? (
                   <input value={currentReport.periodo} onChange={(e) => updateField('periodo', e.target.value)}
                     className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-foreground text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" />
@@ -268,7 +268,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Row 2: Capital + Lote */}
             <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-foreground/5">
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Capital Inicial</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Initial Capital</span>
                 {isEditable ? (
                   <input value={currentReport.capitalInicial} onChange={(e) => updateField('capitalInicial', e.target.value)}
                     className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" style={{ color: 'hsl(74,100%,43%)' }} />
@@ -277,7 +277,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 )}
               </div>
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Lote Operado</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Lot Size</span>
                 {isEditable ? (
                   <input value={currentReport.loteOperado} onChange={(e) => updateField('loteOperado', e.target.value)}
                     className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-foreground text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" />
@@ -290,7 +290,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Row 3: Total Ops + Win Rate */}
             <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-foreground/5">
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Total de Operações</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Total Trades</span>
                 {isEditable ? (
                   <input value={currentReport.totalOperacoes} onChange={(e) => updateField('totalOperacoes', e.target.value)}
                     className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-foreground text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" />
@@ -319,7 +319,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Row 4: Lucro + Retorno */}
             <div className="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-foreground/5">
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Lucro Total</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Total Profit</span>
                 {isEditable ? (
                   <input value={currentReport.lucroTotal} onChange={(e) => updateField('lucroTotal', e.target.value)}
                     placeholder="+$403,08" className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" style={{ color: '#22c55e' }} />
@@ -328,7 +328,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 )}
               </div>
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Retorno</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Return</span>
                 {isEditable ? (
                   <input value={currentReport.retorno} onChange={(e) => updateField('retorno', e.target.value)}
                     placeholder="+201%" className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" style={{ color: '#22c55e' }} />
@@ -341,7 +341,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
             {/* Row 5: Drawdown + Risco */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Drawdown Máximo</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Max Drawdown</span>
                 {isEditable ? (
                   <input value={currentReport.drawdownMaximo} onChange={(e) => updateField('drawdownMaximo', e.target.value)}
                     placeholder="24,61%" className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" style={{ color: '#ef4444' }} />
@@ -350,7 +350,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                 )}
               </div>
               <div>
-                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Risco Máximo</span>
+                <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Max Risk</span>
                 {isEditable ? (
                   <input value={currentReport.riscoMaximo} onChange={(e) => updateField('riscoMaximo', e.target.value)}
                     placeholder="$49,23" className="block w-full bg-background border border-foreground/10 rounded px-2 py-1 text-sm font-bold font-montserrat mt-1 focus:outline-none focus:border-primary" style={{ color: '#ef4444' }} />
@@ -363,12 +363,12 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
 
           {/* Observações do período */}
           <div className="border border-foreground/10 rounded-lg p-4 mb-4">
-            <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Observações do período</span>
+            <span className="text-muted text-[10px] font-montserrat uppercase tracking-wider">Period notes</span>
             {isEditable ? (
               <textarea
                 value={currentReport.observacoes}
                 onChange={(e) => updateField('observacoes', e.target.value)}
-                placeholder="Adicione observações sobre o período..."
+                placeholder="Add notes about this period..."
                 rows={3}
                 className="block w-full bg-background border border-foreground/10 rounded px-3 py-2 text-foreground text-sm font-montserrat mt-1 focus:outline-none focus:border-primary resize-none"
               />
@@ -389,7 +389,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
               >
                 <X size={24} className="text-white" />
               </button>
-              <img src={fullscreenImage} alt="Relatório em tela cheia" className="max-w-[95vw] max-h-[95vh] object-contain" />
+              <img src={fullscreenImage} alt="Report fullscreen" className="max-w-[95vw] max-h-[95vh] object-contain" />
             </div>
           )}
 
@@ -408,7 +408,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
                       <button
                         onClick={() => setFullscreenImage(print.url)}
                         className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 rounded-full p-1.5 transition-colors opacity-0 group-hover:opacity-100"
-                        title="Expandir"
+                        title="Expand"
                       >
                         <Maximize2 size={14} className="text-white" />
                       </button>
@@ -451,7 +451,7 @@ const RobotReportModal = ({ robotName, onClose }: { robotName: string; onClose: 
               className="w-full mt-4 py-3 rounded-lg font-montserrat font-bold text-sm text-black transition-all hover:brightness-110"
               style={{ backgroundColor: '#aaff00' }}
             >
-              Salvar Relatório
+              Save Report
             </button>
           )}
         </div>
